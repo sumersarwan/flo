@@ -89,12 +89,17 @@ gltfloader.load(
     }
 )
 
-
+const geometry = new THREE.PlaneGeometry( 500, 500 );
+const material = new THREE.MeshBasicMaterial( {color: "#013349", side: THREE.DoubleSide} );
+const plane = new THREE.Mesh( geometry, material );
+plane.position.y = -3
+plane.rotation.x = Math.PI/2
+scene.add( plane );
 
 /**
  * Light
  */
-const Light = new THREE.PointLight("#ffff" , 100 , 100);
+const Light = new THREE.PointLight("#ffff",100 , 100);
 Light.position.set(
     1,
     0.9677633047103882, 
@@ -102,6 +107,9 @@ Light.position.set(
 
 scene.add(Light)
 
+
+const light = new THREE.AmbientLight( 0x404040 , 20 ); // soft white light
+scene.add( light );
 
 
 
@@ -150,6 +158,7 @@ scene.add(camera)
 // Controls
 const controls = new OrbitControls(camera, canvas)
 controls.enableDamping = true
+controls.minPolarAngle=controls.maxPolarAngle=1.57079
 
 /**
  * Renderer
